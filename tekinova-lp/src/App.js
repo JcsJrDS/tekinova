@@ -165,7 +165,7 @@ const About = () => {
       <div className="container mx-auto px-4 flex flex-col md:flex-row items-center gap-12">
         <div className="md:w-1/2">
             <img 
-                src="https://placehold.co/600x400/1F2937/9333EA?text=Nossa+Equipe"
+                src="/Equipe.png"
                 alt="Equipe TEKINOVA"
                 className="rounded-lg shadow-2xl w-full"
             />
@@ -197,7 +197,8 @@ const Portfolio = () => {
         {
             title: "Landing Page para Startup",
             category: "Landing Page",
-            imgUrl: "https://placehold.co/600x400/9333EA/FFFFFF?text=Projeto+3"
+            imgUrl: "/Lp.jpg", // Caminho local
+            link: "https://mesv.empreendersendovoce.com.br/" // <-- apenas a URL
         }
     ];
 
@@ -209,8 +210,14 @@ const Portfolio = () => {
                 <div className="grid md:grid-cols-3 gap-8">
                     {projects.map((project, index) => (
                         <div key={index} className="group relative rounded-lg overflow-hidden shadow-lg">
-                            <img src={project.imgUrl} alt={project.title} className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"/>
-                            <div className="absolute inset-0 bg-black bg-opacity-60 group-hover:bg-opacity-80 transition-all duration-300 flex flex-col justify-center items-center p-4 text-white text-center opacity-0 group-hover:opacity-100">
+                            {project.link ? (
+                                <a href={project.link} target="_blank" rel="noopener noreferrer">
+                                  <img src={project.imgUrl} alt={project.title} className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"/>
+                                </a>
+                              ) : (
+                                <img src={project.imgUrl} alt={project.title} className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"/>
+                              )}
+                            <div className="absolute inset-0 bg-black bg-opacity-60 group-hover:bg-opacity-80 transition-all duration-300 flex flex-col justify-center items-center p-4 text-white text-center opacity-0 group-hover:opacity-100 pointer-events-none">
                                 <h4 className="text-xl font-bold mb-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">{project.title}</h4>
                                 <p className="text-purple-300 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-100">{project.category}</p>
                             </div>
