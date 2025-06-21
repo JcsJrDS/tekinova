@@ -165,7 +165,7 @@ const About = () => {
       <div className="container mx-auto px-4 flex flex-col md:flex-row items-center gap-12">
         <div className="md:w-1/2">
             <img 
-                src="https://placehold.co/600x400/1F2937/9333EA?text=Nossa+Equipe"
+                src="/Equipe.png"
                 alt="Equipe TEKINOVA"
                 className="rounded-lg shadow-2xl w-full"
             />
@@ -192,31 +192,66 @@ const Portfolio = () => {
         {
             title: "Chatbot de Atendimento com IA",
             category: "Agente de IA",
-            imgUrl: "https://placehold.co/600x400/9333EA/FFFFFF?text=Projeto+2"
+            imgUrl: "https://placehold.co/600x400/9333EA/FFFFFF?text=Projeto+2",
+            videoUrl: "/rag_web_rapida.mp4" // Caminho relativo ao public
         },
         {
             title: "Landing Page para Startup",
             category: "Landing Page",
-            imgUrl: "https://placehold.co/600x400/9333EA/FFFFFF?text=Projeto+3"
+            imgUrl: "/Lp.jpg", // Caminho local
+            link: "https://mesv.empreendersendovoce.com.br/" // <-- apenas a URL
         }
     ];
+
+    // Separa o projeto de vídeo dos demais
+    const videoProject = projects.find(p => p.videoUrl);
+    const otherProjects = projects.filter(p => !p.videoUrl);
 
     return (
         <section id="portfólio" className="py-20 bg-gray-800">
             <div className="container mx-auto px-4 text-center">
                 <h3 className="text-3xl md:text-4xl font-bold text-white mb-2">Projetos que Geram Orgulho</h3>
                 <p className="text-gray-400 mb-12 max-w-2xl mx-auto">Uma amostra do nosso trabalho e da nossa dedicação.</p>
-                <div className="grid md:grid-cols-3 gap-8">
-                    {projects.map((project, index) => (
+
+                {/* Grid para projetos de imagem (Projeto 1 e 3) */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                    {otherProjects.map((project, index) => (
                         <div key={index} className="group relative rounded-lg overflow-hidden shadow-lg">
-                            <img src={project.imgUrl} alt={project.title} className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"/>
-                            <div className="absolute inset-0 bg-black bg-opacity-60 group-hover:bg-opacity-80 transition-all duration-300 flex flex-col justify-center items-center p-4 text-white text-center opacity-0 group-hover:opacity-100">
+                            {project.link ? (
+                              <a href={project.link} target="_blank" rel="noopener noreferrer">
+                                <img src={project.imgUrl} alt={project.title} className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"/>
+                              </a>
+                            ) : (
+                              <img src={project.imgUrl} alt={project.title} className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"/>
+                            )}
+                            <div className="absolute inset-0 bg-black bg-opacity-60 group-hover:bg-opacity-80 transition-all duration-300 flex flex-col justify-center items-center p-4 text-white text-center opacity-0 group-hover:opacity-100 pointer-events-none">
                                 <h4 className="text-xl font-bold mb-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">{project.title}</h4>
                                 <p className="text-purple-300 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-100">{project.category}</p>
                             </div>
                         </div>
                     ))}
                 </div>
+
+                {/* Container para o projeto de vídeo */}
+                {videoProject && (
+                    <div className="mt-12 max-w-4xl mx-auto">
+                        <div className="group relative rounded-lg overflow-hidden shadow-lg">
+                            <div className="aspect-video w-full">
+                                <video
+                                  src={videoProject.videoUrl}
+                                  controls
+                                  className="w-full h-full object-cover rounded-lg"
+                                >
+                                  Seu navegador não suporta vídeo.
+                                </video>
+                            </div>
+                            <div className="absolute inset-0 bg-black bg-opacity-60 group-hover:bg-opacity-80 transition-all duration-300 flex flex-col justify-center items-center p-4 text-white text-center opacity-0 group-hover:opacity-100 pointer-events-none">
+                                <h4 className="text-xl font-bold mb-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">{videoProject.title}</h4>
+                                <p className="text-purple-300 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-100">{videoProject.category}</p>
+                            </div>
+                        </div>
+                    </div>
+                )}
             </div>
         </section>
     );
