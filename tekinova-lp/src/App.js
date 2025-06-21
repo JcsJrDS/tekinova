@@ -226,12 +226,22 @@ const Portfolio = () => {
 const Contact = () => {
     const [status, setStatus] = useState("");
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Aqui iria a lógica de envio do formulário para um backend ou serviço.
-        // Por enquanto, apenas simulamos o sucesso.
-        setStatus("Mensagem enviada com sucesso!");
-        e.target.reset();
+        const data = new FormData(e.target);
+        const response = await fetch('https://formspree.io/f/mldnwwor', {
+            method: 'POST',
+            body: data,
+            headers: {
+                'Accept': 'application/json'
+            }
+        });
+        if (response.ok) {
+            setStatus("Mensagem enviada com sucesso!");
+            e.target.reset();
+        } else {
+            setStatus("Ocorreu um erro. Tente novamente.");
+        }
         setTimeout(() => setStatus(""), 5000);
     };
 
@@ -281,7 +291,7 @@ const Footer = () => {
 // --- COMPONENTE WhatsAppButton ---
 const WhatsAppButton = () => {
     // IMPORTANTE: Substitua 'SEUNUMERODOWHATSAPP' pelo seu número completo com código do país (ex: 5511999999999)
-    const phoneNumber = "5511999999999"; 
+    const phoneNumber = "554791883517"; 
     const message = "Olá! Visitei o site da TEKINOVA e gostaria de mais informações.";
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
 
