@@ -199,7 +199,7 @@ const Portfolio = () => {
             title: "Landing Page para Startup",
             category: "Landing Page",
             imgUrl: "/Lp.jpg", // Caminho local
-            link: "https://mesv.empreendersendovoce.com.br/" // <-- apenas a URL
+            link: "https://mesv.empreendersendovoce.com.br/"
         }
     ];
 
